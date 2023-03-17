@@ -18,3 +18,10 @@ def catalog(request):
 
 def contactUs(request):
     return render(request, 'main/contactUs.html')
+
+
+def changedContactUs(request, logo):
+    if (logo != 'logo') and (logo != 'electro'):
+        logo = 'logo'
+
+    return render(request, 'main/contactUs2.html', {'logo': 'main/img/' + logo + '.png'})
