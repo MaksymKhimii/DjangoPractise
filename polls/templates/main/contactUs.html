@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
+    <meta charset="UTF-8">
+    <title>Contact Us</title>
+</head>
+<body>
+<div style=".flex-container">
+    <div class="header">
+        <img class="logo2" src="{% static 'main/img/logo.png' %}" alt="Logotype!!!">
+        <h1 class="logoName"><a href="#">Магазин побутової техніки</a></h1>
+        <ul class="main-nav">
+            <li><a id="index" href="{% url 'main' %}">Головна</a></li>
+            <li><a href="{% url 'catalog' %}">Каталог</a></li>
+            <li>
+                <div class="dropdown">
+                    <a class="dropbtn"> Кошик
+                        <i class="fa fa-caret-down"></i>
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="basket.html">Переглянути кошик</a>
+                        <a href="order2.html">Оформити замовлення</a>
+                    </div>
+                </div>
+            </li>
+            <li><a href="{% url 'contactUs' %}" style="
+            background-color: #34495e; color: #ccccff;">Зв'язатися з нами</a></li>
+        </ul>
+    </div>
+    <div style="text-align: center">
+        <h2>Зв'яжіться з нами</h2>
+        <div class="row">
+            <div class="contact-us-column">
+                <img src="{% static 'main/img/contact-us.png' %}" alt="shop photo"
+                     style="width: 50%; height: 60%; display: flex; margin: auto;">
+            </div>
+            <div class="contact-us-column">
+                <form action="/action">
+                    <br>
+                    <label for="fname">Ім'я</label><br>
+                    <input type="text" id="fname" name="firstname" placeholder="Ваше ім'я.."><br>
+                    <label for="email">Пошта</label><br>
+                    <input type="text" id="email" name="email" placeholder="Ваша пошта.."><br>
+                    <label for="country">Країна</label><br>
+                    <select id="country" name="country"><br>
+                        <option value="australia">Україна</option>
+                        <option value="canada">Канада</option>
+                        <option value="usa">США</option>
+                    </select><br>
+                    <label for="feedback">Будь ласка, напишіть тут</label><br>
+                    <textarea id="feedback" name="feedback" placeholder="Напишіть тут.."
+                              style="height:170px"></textarea><br>
+                    <input type="submit" value="Надіслати">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
