@@ -1,0 +1,50 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{% static 'main/css/login_page.css' %}">
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+<div style=".flex-container">
+    <div style=""></div>
+    <div class="header">
+        <a href="{% url 'main' %}"><img class="logo" src="{% static 'main/img/logo.png' %}" alt="Logotype!!!"></a>
+        <h1 class="logoName"><a href="#">Магазин побутової техніки</a></h1>
+        <ul class="main-nav">
+            <li><a id="index" href="{% url 'main' %}" style="
+            background-color: #34495e; color: #ccccff;">Головна</a></li>
+            <li><a href="{% url 'catalog' %}">Каталог</a></li>
+        </ul>
+    </div>
+    <div style="text-alight: center">
+        <div class="login-page">
+            <div class="form">
+                <h3>Login Form</h3>
+                <form class="register-form">
+
+                    <input type="text" placeholder="name"/>
+                    <input type="password" placeholder="password"/>
+                    <input type="text" placeholder="email address"/>
+                    <button>create</button>
+                    <p class="message">Already registered? <a href="#">Sign In</a></p>
+                </form>
+                <form class="login-form">
+                    <input type="text" placeholder="username"/>
+                    <input type="password" placeholder="password"/>
+                    <button>login</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $('.message a').click(function(){
+   $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
+});
+
+</script>
+</body>
+</html>

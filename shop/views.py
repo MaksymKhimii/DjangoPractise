@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from .models import Product
 
 
 def index(request):
@@ -13,7 +14,8 @@ def main(request):
 
 
 def catalog(request):
-    return render(request, 'main/catalog.html')
+    products = Product.objects.all()
+    return render(request, 'main/catalog.html', {'products': products})
 
 
 def contactUs(request):
@@ -25,3 +27,7 @@ def changedContactUs(request, logo):
         logo = 'logo'
 
     return render(request, 'main/contactUs2.html', {'logo': 'main/img/' + logo + '.png'})
+
+
+def loginPage(request):
+    return render(request, 'main/login.html')
