@@ -7,7 +7,8 @@ urlpatterns = [
     path('catalog', views.catalog, name='catalog'),
     path('contactUs', views.contactUs, name='contactUs'),
     path('contactUs/<str:logo>', views.changedContactUs, name='contactUs'),
-    path('login', views.loginPage, name='login')
+    path('login', views.loginPage, name='login'),
+    path('check-user', views.checkUser, name = 'check-user')
     # добавляем все страницы + контроллер который возращает
     # хтмл + имя, которе потом указываем с помощью джинджа в ссылке для перехода
 ]

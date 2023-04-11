@@ -1,6 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+
+from .forms import UserForm
 from .models import Product
+from django.contrib.auth import authenticate, login
+from django.shortcuts import render, redirect
 
 
 def index(request):
@@ -30,4 +34,18 @@ def changedContactUs(request, logo):
 
 
 def loginPage(request):
-    return render(request, 'main/login.html')
+    form = UserForm()
+    data = {
+        'form': form
+    }
+    return render(request, 'main/login.html', data)
+
+
+def checkUser(request):
+    username = request.POST["username"]
+    password = request.POST["password"]
+    user = authenticate(request, username=username, password=password)
+    if user is not None:
+        return redirect('catalog')
+    else:
+        return redirect('login')
