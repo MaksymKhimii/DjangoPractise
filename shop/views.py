@@ -3,7 +3,7 @@ from django.http import HttpResponse
 
 from .forms import UserForm
 from .models import Product
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 
 
@@ -41,11 +41,17 @@ def loginPage(request):
     return render(request, 'main/login.html', data)
 
 
-def checkUser(request):
+def loginAction(request):
     username = request.POST["username"]
     password = request.POST["password"]
     user = authenticate(request, username=username, password=password)
+    request.session['username'] = username
     if user is not None:
         return redirect('catalog')
     else:
         return redirect('login')
+
+
+def logoutAction(request):
+    logout(request)
+    return redirect('main')

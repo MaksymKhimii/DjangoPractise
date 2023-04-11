@@ -9,7 +9,34 @@
 </head>
 <body>
 <div style=".flex-container">
-    <a style="
+    {% if request.session.username != None%}
+    <h4 style=" color: white;
+        background-color: #00008B;
+        display: inline-block;
+        padding: 13px 45px;
+        border: 2px solid #00008B;
+        text-decoration: none;
+        text-align: center;
+        font: 13px Arial, sans-serif;
+        position:fixed;
+        left:1379px;
+        top:36px;">{{request.session.username}}</h4>
+     <a style="
+        color: white;
+        background-color: red;
+        display: inline-block;
+        padding: 13px 43px;
+        border: 2px solid red;
+        text-decoration: none;
+        text-align: center;
+        font: 13px Arial, sans-serif;
+        position:fixed;
+        left:1379px;
+        top:95px;
+    " href="{% url 'logout' %}">Вийти</a>
+
+    {% else %}
+     <a style="
         color: white;
         background-color: #00008B;
         display: inline-block;
@@ -22,6 +49,8 @@
         left:1379px;
         top:36px;
     " href="{% url 'login' %}">Вхід</a>
+    {% endif %}
+
 
 
     <div class="header">
@@ -75,7 +104,7 @@
         <div class="product-list">
             <div class="item_title">{{ product.title }}</div>
             <span class="item_price">{{ product.price }}</span>
-            <button class="add_item" data-id="1">Додати до кошику</button>
+            <a class="add_item" data-id="1">Додати до кошику</a>
         </div>
     </div>
     {% endfor %}
