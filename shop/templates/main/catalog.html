@@ -9,7 +9,7 @@
 </head>
 <body>
 <div style=".flex-container">
-    {% if request.session.username != None%}
+    {% if request.session.username != None %}
     <h4 style=" color: white;
         background-color: #00008B;
         display: inline-block;
@@ -21,7 +21,7 @@
         position:fixed;
         left:1379px;
         top:36px;">{{request.session.username}}</h4>
-     <a style="
+    <a style="
         color: white;
         background-color: red;
         display: inline-block;
@@ -36,7 +36,7 @@
     " href="{% url 'logout' %}">Вийти</a>
 
     {% else %}
-     <a style="
+    <a style="
         color: white;
         background-color: #00008B;
         display: inline-block;
@@ -50,7 +50,6 @@
         top:36px;
     " href="{% url 'login' %}">Вхід</a>
     {% endif %}
-
 
 
     <div class="header">
@@ -75,42 +74,42 @@
         </ul>
     </div>
 
-<!--корзина------------------------------------------------------>
-<div class="message" id="message">
-    <div class="message_container">
-        <div class="message_body">
-            <form action="index.html" method="get">
-                <input type="submit" class="close_wind" style="padding: 2.5px 7.5px" value="&#10006">
-            </form>
-            <div id="shopping-cart" class="shopping-cart"></div>
-            <br>
-            <form>
-                <a class="continue" href="index.html">Продовжити</a>
-                <a class="continue" style="background-color: #03A9F4" href="html/order2.html">Оформити замовлення</a>
-                <a class="continue" style="background-color: #fc5a5a" href="#" id="clear_cart">Очистити корзину</a>
-            </form>
+    <!--корзина------------------------------------------------------>
+    <div class="message" id="message">
+        <div class="message_container">
+            <div class="message_body">
+                <form action="/catalog" method="get">
+                    <input type="submit" class="close_wind" style="padding: 2.5px 7.5px" value="&#10006">
+                </form>
+                <div id="shopping-cart" class="shopping-cart"></div>
+                <br>
+                <form>
+                    <a class="continue" href="index.html">Продовжити</a>
+                    <a class="continue" style="background-color: #03A9F4" href="html/order2.html">Оформити
+                        замовлення</a>
+                    <a class="continue" style="background-color: #fc5a5a" href="#" id="clear_cart">Очистити корзину</a>
+                </form>
+            </div>
         </div>
     </div>
-</div>
-<!--корзина------------------------------------------------------>
+    <!--корзина------------------------------------------------------>
 
 
-<div class="container" style="margin-top: 150px">
-
-    {% for product in products %}
-    <div class="item_box">
-        <img src="{{ product.img }}"
-             alt="photo">
-        <div class="product-list">
-            <div class="item_title">{{ product.title }}</div>
-            <span class="item_price">{{ product.price }}</span>
-            <a class="add_item" data-id="1">Додати до кошику</a>
+    <div class="container" style="margin-top: 150px">
+        {% for product in products %}
+        <div class="item_box">
+            <img src="{{ product.img }}"
+                 alt="photo">
+            <div class="product-list">
+                <div id="title{{ forloop.counter0 }}" class="item_title">{{ product.title }}</div>
+                <span id="price{{ forloop.counter0 }}"class="item_price">{{ product.price }}</span>
+                <button onclick="addToBasket({{ forloop.counter0 }})" class="add_item" data-id="{{ forloop.counter0 }}">Додати до кошику</button>
+            </div>
         </div>
+        {% endfor %}
+        <br>
     </div>
-    {% endfor %}
-    <br>
-</div>
 </div>
 </body>
-<script type="text/javascript" src="{% static 'main/js/cart1.js'%}"></script>
+<script type="text/javascript" src="{% static 'main/js/adding_product.js'%}"></script>
 </html>

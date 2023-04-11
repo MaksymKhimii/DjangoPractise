@@ -1,13 +1,12 @@
-from django.shortcuts import render
+from django.contrib.auth import authenticate, logout
 from django.http import HttpResponse
+from django.shortcuts import render, redirect
 
 from .forms import UserForm
 from .models import Product
-from django.contrib.auth import authenticate, login, logout
-from django.shortcuts import render, redirect
 
 
-def index(request):
+def index():
     return HttpResponse("<h4>Проверка работы</h4>")
     # tit = 'Це інший заголовок'
     # return render(request, 'index.html', {'tit': tit})
@@ -55,3 +54,10 @@ def loginAction(request):
 def logoutAction(request):
     logout(request)
     return redirect('main')
+
+
+def addProductToBasket(request):
+    # TODO сначало по клику добавить в корзину поля товара передадутся
+    #  в форму, там установится количество и после этого по клику форма отправляет параметры сюда
+    #  чтобы поместить данные в бд и потом передавать на страницу корзины
+    return redirect('catalog')
