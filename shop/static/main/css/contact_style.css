@@ -18,7 +18,7 @@ ul {
     display: flex;
 }
 
-li a:hover{
+li a:hover {
     background-color: #34495e;
     color: #ccccff;
     display: flex;
@@ -40,6 +40,7 @@ a {
     border-radius: 50%;
     display: flex;
 }
+
 .logo2 {
     width: 8%;
     height: 8%;
@@ -69,7 +70,7 @@ a {
     color: #34495e;
     font-size: .99em;
     display: flex;
-    flex-shrink:1;
+    flex-shrink: 1;
 }
 
 .header {
@@ -88,7 +89,7 @@ a {
     left: 100px;
     right: 100px;
     display: flex;
-    flex-shrink:1;
+    flex-shrink: 1;
 }
 
 @media (min-width: 769px) {
@@ -125,7 +126,20 @@ input[type=text], select, textarea {
     margin-bottom: 16px;
     resize: none;
     background-color: snow;
+    text-align: center;
 }
+
+input[type=number] {
+    width: 75%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    resize: none;
+    background-color: snow;
+    text-align: center;
+}
+
 
 input[type=submit] {
     background-color: #04AA6D;
@@ -162,6 +176,7 @@ input[type=button] {
 input[type=button]:hover {
     background-color: #45a049;
 }
+
 .contact-us-column {
     float: left;
     width: 50%;
@@ -174,7 +189,7 @@ input[type=button]:hover {
     text-align: center;
 }
 
-.flex-container{
+.flex-container {
     display: flex;
 }
 
@@ -243,6 +258,7 @@ input[type=button]:hover {
     margin: 0;
     display: flex;
 }
+
 .navbar a:hover, .dropbtn {
     background-color: #ccccff;
 }
@@ -252,7 +268,7 @@ input[type=button]:hover {
     position: absolute;
     background-color: #ccccff;
     min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
 }
 
@@ -265,7 +281,7 @@ input[type=button]:hover {
     text-align: left;
 }
 
-.dropdown a:hover{
+.dropdown a:hover {
     background-color: #34495e;
     color: #ccccff;
 }
@@ -279,7 +295,7 @@ input[type=button]:hover {
     display: block;
 }
 
-.table{
+.table {
     text-align: center;
     margin: auto;
     background-color: #b38bff;
@@ -288,7 +304,7 @@ input[type=button]:hover {
 
 }
 
-td, th{
+td, th {
     text-align: center;
     border-collapse: collapse;
     border: 1px solid black;
@@ -296,13 +312,13 @@ td, th{
     height: 50px;
 }
 
-.do-order-btn{
+.do-order-btn {
     text-align: center;
     background-color: #04AA6D;
     padding: 14px 20px;
     border-radius: 10px;
     cursor: pointer;
-    position: center;
+ /*   position: center;*/
     display: flex;
     margin: auto;
     width: 110px;
@@ -324,6 +340,7 @@ td, th{
     background-color: rgba(0, 0, 0, 0.4);
     padding-top: 50px;
 }
+
 .modal-content {
     background-color: #b38bff;
     margin: 5% auto 15% auto;
@@ -331,13 +348,14 @@ td, th{
     width: 50%;
     height: 535px;
 }
+
 .imgcontainer {
     text-align: right;
     margin: 24px 0 12px 0;
     position: relative;
 }
 
-.cancelbtn{
+.cancelbtn {
     text-align: center;
     margin-left: auto;
     margin-top: auto;
@@ -348,49 +366,52 @@ td, th{
     width: 60px;
     background-color: #ccccff;
 }
+
 /*sa-----------------------------*/
-.message{
-    display:none;
-    width:100%;
-    height:100%;
-    position:fixed;
-    left:0;
-    top:0;
+.message {
+    display: none;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
     background-color: rgba(0, 0, 0, .8);
-    z-index:3;
+    z-index: 3;
 }
-.message_container{
-    display:flex;
-    width:100%;
-    height:100%;
+
+.message_container {
+    display: flex;
+    width: 100%;
+    height: 100%;
 }
-.message_body{
-    margin:auto;
-    width:670px;
+
+.message_body {
+    margin: auto;
+    width: 670px;
     background-color: white;
-    border-radius:10px;
-    text-align:center;
-    padding:130px 15px 110px 15px;
-    position:relative;
+    border-radius: 10px;
+    text-align: center;
+    padding: 130px 15px 110px 15px;
+    position: relative;
 }
 
-.message.active{
-    display:block;
+.message.active {
+    display: block;
 }
 
-.close_wind{
-    position:absolute;
-    top:15px;
-    right:15px;
-    font-size:21px;
-    cursor:pointer;
+.close_wind {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 21px;
+    cursor: pointer;
 }
 
-.item_title{
+.item_title {
 
 }
 
-.continue{
+.continue {
     background-color: #04AA6D;
     color: white;
     padding: 10px 20px;

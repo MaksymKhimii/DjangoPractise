@@ -83,10 +83,11 @@
                 </form>
 
                 <br>
-                <form>
+                <form action="/addToBasket" method="post">
+                     {% csrf_token %}
                     <div id="shopping-cart" class="shopping-cart"></div>
                     <br>
-                    <a class="continue" style="background-color: #03A9F4" href="index.html">Продовжити</a>
+                    <button type="submit" class="continue" style="background-color: #03A9F4">Продовжити</button>
                     <!-- <a class="continue" style="background-color: #03A9F4" href="html/order2.html">Оформити
                          замовлення</a>
                      <a class="continue" style="background-color: #fc5a5a" href="#" id="clear_cart">Очистити корзину</a>-->

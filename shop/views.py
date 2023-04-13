@@ -57,8 +57,10 @@ def logoutAction(request):
     return redirect('main')
 
 
-def addProductToBasket(request):
-    # TODO сначало по клику добавить в корзину поля товара передадутся
-    #  в форму, там установится количество и после этого по клику форма отправляет параметры сюда
-    #  чтобы поместить данные в бд и потом передавать на страницу корзины
+def addToBasket(request):
+    title = request.POST["title"]
+    price = request.POST["price"]
+    count = request.POST["productCount"]
+
+    print('title: ' + title + 'price: ' + price + 'count: ' + count)
     return redirect('catalog')
