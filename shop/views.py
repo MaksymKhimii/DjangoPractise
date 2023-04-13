@@ -58,6 +58,7 @@ def logoutAction(request):
 
 
 def addToBasket(request):
+    # TODO check is user logged in
     title = request.POST["title"]
     price = request.POST["price"]
     count = request.POST["productCount"]
