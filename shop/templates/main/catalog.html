@@ -81,13 +81,15 @@
                 <form action="/catalog" method="get">
                     <input type="submit" class="close_wind" style="padding: 2.5px 7.5px" value="&#10006">
                 </form>
-                <div id="shopping-cart" class="shopping-cart"></div>
+
                 <br>
                 <form>
-                    <a class="continue" href="index.html">Продовжити</a>
-                    <a class="continue" style="background-color: #03A9F4" href="html/order2.html">Оформити
-                        замовлення</a>
-                    <a class="continue" style="background-color: #fc5a5a" href="#" id="clear_cart">Очистити корзину</a>
+                    <div id="shopping-cart" class="shopping-cart"></div>
+                    <br>
+                    <a class="continue" style="background-color: #03A9F4" href="index.html">Продовжити</a>
+                    <!-- <a class="continue" style="background-color: #03A9F4" href="html/order2.html">Оформити
+                         замовлення</a>
+                     <a class="continue" style="background-color: #fc5a5a" href="#" id="clear_cart">Очистити корзину</a>-->
                 </form>
             </div>
         </div>
@@ -102,8 +104,10 @@
                  alt="photo">
             <div class="product-list">
                 <div id="title{{ forloop.counter0 }}" class="item_title">{{ product.title }}</div>
-                <span id="price{{ forloop.counter0 }}"class="item_price">{{ product.price }}</span>
-                <button onclick="addToBasket({{ forloop.counter0 }})" class="add_item" data-id="{{ forloop.counter0 }}">Додати до кошику</button>
+                <span id="price{{ forloop.counter0 }}" class="item_price">{{ product.price }}</span>
+                <button onclick="addToBasket({{ forloop.counter0 }})"
+                        class="add_item" data-id="{{ forloop.counter0 }}">Додати до кошику
+                </button>
             </div>
         </div>
         {% endfor %}

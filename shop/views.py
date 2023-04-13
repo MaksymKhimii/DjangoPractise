@@ -6,7 +6,7 @@ from .forms import UserForm
 from .models import Product
 
 
-def index():
+def index(request):
     return HttpResponse("<h4>Проверка работы</h4>")
     # tit = 'Це інший заголовок'
     # return render(request, 'index.html', {'tit': tit})
@@ -22,14 +22,15 @@ def catalog(request):
 
 
 def contactUs(request):
-    return render(request, 'main/contactUs.html')
+    logo = 'logo'
+    return render(request, 'main/contactUs.html', {'logo': 'main/img/' + logo + '.png'})
 
 
 def changedContactUs(request, logo):
     if (logo != 'logo') and (logo != 'electro'):
         logo = 'logo'
 
-    return render(request, 'main/contactUs2.html', {'logo': 'main/img/' + logo + '.png'})
+    return render(request, 'main/contactUs.html', {'logo': 'main/img/' + logo + '.png'})
 
 
 def loginPage(request):
