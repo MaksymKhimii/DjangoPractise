@@ -73,6 +73,20 @@
             <li><a href="{% url 'contactUs' %}">Зв'язатися з нами</a></li>
         </ul>
     </div>
+
+    <div class="shopping-cart" style="text-align: center">
+    <div id="shopping-cart1" class="shopping-cart1">
+        {% for basketProduct in basketProducts %}
+        <p>{{basketProduct.product.title}}</p><br>
+        {% endfor %}
+    </div>
+    <br>
+    <form>
+        <a class="continue" href="../index.html">Продовжити</a>
+        <a class="continue" style="background-color: #03A9F4" href="order2.html">Оформити замовлення</a>
+        <a class="continue" style="background-color: #fc5a5a" href="#" id="clear_cart">Очистити корзину</a>
+    </form>
+</div>
 </div>
 </body>
 </html>
