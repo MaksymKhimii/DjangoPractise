@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
 from .forms import UserForm
-from .models import Product
+from .models import Product, Basket, User, BasketProducts
 
 
 def index(request):
@@ -60,8 +60,35 @@ def logoutAction(request):
 def addToBasket(request):
     # TODO check is user logged in
     title = request.POST["title"]
-    price = request.POST["price"]
     count = request.POST["productCount"]
+    product = Product.objects.get(title=title)
+    if 'username' in request.session:
+        username = request.session['username']
+        user = User.objects.get(username=username)
+        if Basket.objects.filter(user=user).exists():
+            basket = Basket.objects.get(user=user)
+        else:
+            basket = Basket()
+            basket.user = user
+            basket.id = 0
+            basket.save()
+        basketProducts = BasketProducts()
+        basketProducts.basket = basket
+        basketProducts.product = product
+        basketProducts.count = count
+        basketProducts.save()
 
-    print('title: ' + title + 'price: ' + price + 'count: ' + count)
-    return redirect('catalog')
+        return redirect('catalog')
+    else:
+        return redirect('login')
+
+
+def getBasket(request):
+    if 'username' in request.session:
+        username = request.session['username']
+        user = User.objects.get(username=username)
+        basket = Basket.objects.filter(user=user).first()
+        basketProducts = BasketProducts.objects.filter(basket=basket)
+        return render(request, 'main/basket.html', {'basketProducts': basketProducts})
+    else:
+        return redirect('login')

@@ -10,7 +10,8 @@ urlpatterns = [
     path('login', views.loginPage, name='login'),
     path('check-user', views.loginAction, name ='check-user'),
     path('logout', views.logoutAction, name='logout'),
-    path('addToBasket', views.addToBasket, name='addToBasket')
+    path('addToBasket', views.addToBasket, name='addToBasket'),
+    path('basket', views.getBasket, name='basket')
     # добавляем все страницы + контроллер который возращает
     # хтмл + имя, которе потом указываем с помощью джинджа в ссылке для перехода
 ]
