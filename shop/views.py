@@ -93,14 +93,18 @@ def getBasket(request):
         user = User.objects.get(username=username)
         basket = Basket.objects.filter(user=user).first()
         basketProducts = BasketProducts.objects.filter(basket=basket)
-        return render(request, 'main/basket.html', {'basketProducts': basketProducts})
+        # TODO сделать подсчет суммы заказа и его вывод
+        totalSum = 0
+        for basketProduct in basketProducts:
+            totalSum += int(basketProduct.product.price) * int(basketProduct.countOfProducts)
+        print('totalSum: '+str(totalSum))
+        return render(request, 'main/basket.html', {'basketProducts': basketProducts, 'totalSum': totalSum})
     else:
         return redirect('login')
 
 
 def deleteProductFromBasket(request, title):
-   # title = request.POST.get("title", False)
-    print('title: '+str(title))
+    print('title: ' + str(title))
     product = Product.objects.get(title=title)
     BasketProducts.objects.filter(product=product).delete()
     return getBasket(request)

@@ -86,6 +86,7 @@
                 <a class="delete-btn1"
                    href="{% url 'deleteProductFromBasket' title=basketProduct.product.title %}">&#10006</a><br>
                 {% endfor %}
+                Загальна сума: {{totalSum}} $<br>
             </div>
         </div>
     </div>
