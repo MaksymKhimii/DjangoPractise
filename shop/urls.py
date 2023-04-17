@@ -13,7 +13,7 @@ urlpatterns = [
     path('addToBasket', views.addToBasket, name='addToBasket'),
     path('basket', views.getBasket, name='basket'),
     path('deleteProductFromBasket/<str:title>', views.deleteProductFromBasket, name='deleteProductFromBasket'),
-    path('deleteBasket', views.deleteBasket, name='deleteBasket')
-    # добавляем все страницы + контроллер который возращает
-    # хтмл + имя, которе потом указываем с помощью джинджа в ссылке для перехода
+    path('deleteBasket', views.deleteBasket, name='deleteBasket'),
+    path('orderPage', views.createOrderPage, name='orderPage'),
+    path('createOrder', views.createOrder, name='createOrder')
 ]

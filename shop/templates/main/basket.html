@@ -66,7 +66,7 @@
                     </a>
                     <div class="dropdown-content">
                         <a href="{% url 'basket' %}">Переглянути кошик</a>
-                        <a href="html/order2.html">Оформити замовлення</a>
+                        <a href="{% url 'orderPage' %}">Оформити замовлення</a>
                     </div>
                 </div>
             </li>
@@ -75,7 +75,7 @@
     </div>
     {% if  totalSum != 0 %}
       <div class="shopping-cart" style="text-align: center">
-        <div id="shopping-cart1" class="shopping-cart1">
+        <div id="shopping-cart" class="shopping-cart1">
             <div class="title" style="text-align: center; top: 60px;">
                 Товари у кошику:<br>
                 {% for basketProduct in basketProducts %}
@@ -93,7 +93,7 @@
      <div style="text-align: center; top: 400px">
         <form>
             <a class="continue" href="{% url 'catalog' %}">Продовжити</a>
-            <a class="continue" style="background-color: #03A9F4" href="order2.html">Оформити замовлення</a>
+            <a class="continue" style="background-color: #03A9F4" href="{% url 'orderPage' %}">Оформити замовлення</a>
             <a class="continue" style="background-color: #fc5a5a" href="{% url 'deleteBasket' %}" id="clear_cart">Очистити корзину</a>
         </form>
     </div>

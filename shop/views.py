@@ -96,7 +96,7 @@ def getBasket(request):
         totalSum = 0
         for basketProduct in basketProducts:
             totalSum += int(basketProduct.product.price) * int(basketProduct.countOfProducts)
-        print('totalSum: '+str(totalSum))
+        print('totalSum: ' + str(totalSum))
         return render(request, 'main/basket.html', {'basketProducts': basketProducts, 'totalSum': totalSum})
     else:
         return redirect('login')
@@ -116,3 +116,18 @@ def deleteBasket(request):
         basket = Basket.objects.filter(user=user).first()
         BasketProducts.objects.filter(basket=basket).delete()
     return getBasket(request)
+
+
+def createOrderPage(request):
+    if 'username' in request.session:
+        username = request.session['username']
+        user = User.objects.get(username=username)
+        #TODO добавить то что будет отображаться на странице по типу заполненые поля с бд(userdetails)
+        return render(request, 'main/order.html')
+    else:
+        return redirect('login')
+
+
+def createOrder(request):
+    #TODO создание чека, очистка корзины
+    return None

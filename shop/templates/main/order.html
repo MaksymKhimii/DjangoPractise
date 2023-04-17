@@ -1,0 +1,164 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <link rel="stylesheet" href="{% static 'main/css/contact_style.css' %}">
+    <link rel="stylesheet" href="{% static 'main/css/order.css' %}">
+    <script src="https://code.jquery.com/jquery-2.2.4.js" charset="utf-8"></script>
+    <meta charset="UTF-8">
+    <title>Basket</title>
+</head>
+<body>
+<div style=".flex-container">
+    {% if request.session.username != None %}
+    <h4 style=" color: white;
+        background-color: #00008B;
+        display: inline-block;
+        padding: 13px 45px;
+        border: 2px solid #00008B;
+        text-decoration: none;
+        text-align: center;
+        font: 13px Arial, sans-serif;
+        position:fixed;
+        left:1379px;
+        top:36px;">{{request.session.username}}</h4>
+    <a style="
+        color: white;
+        background-color: red;
+        display: inline-block;
+        padding: 13px 43px;
+        border: 2px solid red;
+        text-decoration: none;
+        text-align: center;
+        font: 13px Arial, sans-serif;
+        position:fixed;
+        left:1379px;
+        top:95px;
+    " href="{% url 'logout' %}">Вийти</a>
+
+    {% else %}
+    <a style="
+        color: white;
+        background-color: #00008B;
+        display: inline-block;
+        padding: 13px 45px;
+        border: 2px solid #00008B;
+        text-decoration: none;
+        text-align: center;
+        font: 13px Arial, sans-serif;
+        position:fixed;
+        left:1379px;
+        top:36px;
+    " href="{% url 'login' %}">Вхід</a>
+    {% endif %}
+
+
+    <div class="header">
+        <a href="html/first.html"><img class="logo" src="{% static 'main/img/logo.png' %}" alt="Logotype!!!"></a>
+        <h1 class="logoName"><a href="#">Магазин побутової техніки</a></h1>
+        <ul class="main-nav">
+            <li><a id="index" href="{% url 'main' %}">Головна</a></li>
+            <li><a href="{% url 'catalog' %}" style="">Каталог</a></li>
+            <li>
+                <div class="dropdown">
+                    <a class="dropbtn" style="background-color: #34495e; color: #ccccff;"> Кошик
+                        <i class="fa fa-caret-down"></i>
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="{% url 'basket' %}">Переглянути кошик</a>
+                        <a href="{% url 'orderPage' %}">Оформити замовлення</a>
+                    </div>
+                </div>
+            </li>
+            <li><a href="{% url 'contactUs' %}">Зв'язатися з нами</a></li>
+        </ul>
+    </div>
+    <br><br><br><br><br><br>
+
+    <div class="shopping-cart" style="text-align: center;">
+        <div class="title"></div>
+        <div class="frame">
+            <h1>Оформлення замовлення</h1>
+        </div>
+        <div style="
+        display: inline-block;
+         width:600px;
+         height:460px;
+    border:1px solid #000;">
+            <h3>Загальна сума: ***$</h3>
+            <form action="{% url 'createOrder' %}" method="post">
+                <div style="position: relative; left: 150px; text-align: left">
+                    Логін користувача:
+                    <input style="width: 31%;   padding: 5px"
+                           type="text" id="username" name="username" value="{{request.session.username}}" disabled><br>
+                    Номер телефону:
+                    <input style="width: 32%;   padding: 5px;"
+                           type="text" id="phone" name="phone" value="#"><br>
+                    Електронна пошта:
+                    <input style="width: 30%;   padding: 5px"
+                           type="text" id="email" name="email" value="#"><br>
+                    Тип доставки:
+                    <select id="mySelect" style="width: 37%;   padding: 5px">
+                        <option id="del0"></option>
+                        <option id="del1" value="courier">кур'єр</option>
+                        <option id="del2" value="mail">пошта</option>
+                    </select><br>
+                    <div id="myDiv1" style="display: none; width: auto">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for="city1">Місто</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <label for="address">Адреса</label><br>
+                        <input style="width: 26%;   padding: 5px" id="city1" type="text" placeholder="Ваше місто">
+                        <input style="width: 30%;   padding: 5px" id="address" type="text" placeholder="Адреса"><br>
+                    </div>
+                    <div id="myDiv2" style="display: none; width: auto">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for="city2">Місто</label>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <label for="mail_index">Поштовий індекс</label><br>
+                        <input style="width: 26%;   padding: 5px" id="city2" type="text" placeholder="Ваше місто">
+                        <input style="width: 26%;   padding: 5px" id="mail_index" type="text" placeholder="індекс" ><br>
+                    </div>
+                    Тип оплати:
+                    <select id="pay_type" style="width: 40%;   padding: 5px">
+                        <option id="another" value=""></option>
+                        <option id="card" value="card">карткою</option>
+                        <option id="cash" value="cash upon receipt">готівкою при отриманні</option>
+                    </select><br>
+
+                    <input type="button" id="paybtn2" value="Замовити">
+                    <input type="reset" id="reset1" style="background-color: #C5C5C5; color: black"
+                           value="Очистити">
+                   <!-- <div id="myDiv3" style="display: none; width: auto">
+                        <input style="background-color: #BC54FF" type="submit" value="Сплатити">
+                    </div>-->
+                </div>
+            </form>
+            <br><br><br><br><br>
+
+        </div>
+    </div>
+
+
+</div>
+<script>
+    let myDiv1 = document.getElementById("myDiv1");
+    let myDiv2 = document.getElementById("myDiv2");
+    document.getElementById("mySelect").onchange = function () {
+        if (this.selectedIndex === 1) {
+            myDiv1.style.display = "block";
+            myDiv2.style.display = "none";
+        } else if (this.selectedIndex === 2) {
+            myDiv2.style.display = "block";
+
+            myDiv1.style.display = "none";
+        } else {
+            myDiv1.style.display = "none";
+            myDiv2.style.display = "none";
+        }
+    }
+
+   /* let myDiv3 = document.getElementById("myDiv3");
+    document.getElementById("pay_type").onchange = function () {
+        myDiv3.style.display = (this.selectedIndex === 1) ? "block" : "none";
+    }*/
+</script>
+</body>
+</html>
