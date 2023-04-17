@@ -72,12 +72,16 @@ def addToBasket(request):
             basket.user = user
             basket.id = 0
             basket.save()
-        basketProducts = BasketProducts()
-        basketProducts.basket = basket
-        basketProducts.product = product
-        basketProducts.count = count
-        basketProducts.save()
-
+        if BasketProducts.objects.filter(product=product).exists():
+            basketProducts = BasketProducts.objects.get(product=product)
+            basketProducts.countOfProducts = basketProducts.countOfProducts + int(count)
+            basketProducts.save()
+        else:
+            basketProducts = BasketProducts()
+            basketProducts.basket = basket
+            basketProducts.product = product
+            basketProducts.countOfProducts = count
+            basketProducts.save()
         return redirect('catalog')
     else:
         return redirect('login')
@@ -92,3 +96,11 @@ def getBasket(request):
         return render(request, 'main/basket.html', {'basketProducts': basketProducts})
     else:
         return redirect('login')
+
+
+def deleteProductFromBasket(request, title):
+   # title = request.POST.get("title", False)
+    print('title: '+str(title))
+    product = Product.objects.get(title=title)
+    BasketProducts.objects.filter(product=product).delete()
+    return getBasket(request)

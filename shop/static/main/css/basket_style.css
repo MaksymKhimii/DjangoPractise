@@ -13,8 +13,8 @@ body {
 
 .shopping-cart {
     width: 750px;
-    height: 360px;
-    margin: 145px auto;
+    height: 300px;
+    margin: 100px auto;
     background: #FFFFFF;
     box-shadow: 1px 2px 3px 0 rgba(0, 0, 0, 0.10);
     border-radius: 6px;
@@ -135,8 +135,8 @@ body {
 }
 
 button[class*=btn] {
-    width: 30px;
-    height: 30px;
+    width: 35px;
+    height: 35px;
     background-color: #E1E8EE;
     border-radius: 6px;
     border: none;
@@ -223,4 +223,18 @@ input:focus {
     column-count: 2;
     column-gap: 90%;
 
+}
+
+
+.close_wind{
+    position:absolute;
+    top:15px;
+    right:15px;
+    font-size:21px;
+    cursor:pointer;
+}
+.delete-btn1 {
+    width: 20px;
+    height: 18px;
+    background: url("https://designmodo.com/demo/shopping-cart/delete-icn.svg") no-repeat center;
 }

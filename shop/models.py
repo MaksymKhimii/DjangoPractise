@@ -24,7 +24,7 @@ class Basket(models.Model):
 class BasketProducts(models.Model):
     basket = models.ForeignKey(Basket, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    count = models.IntegerField
+    countOfProducts = models.PositiveIntegerField(default=1)
 
 
 class Order(models.Model):
