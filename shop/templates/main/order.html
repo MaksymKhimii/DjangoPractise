@@ -3,7 +3,6 @@
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <link rel="stylesheet" href="{% static 'main/css/contact_style.css' %}">
-    <link rel="stylesheet" href="{% static 'main/css/order.css' %}">
     <script src="https://code.jquery.com/jquery-2.2.4.js" charset="utf-8"></script>
     <meta charset="UTF-8">
     <title>Basket</title>
@@ -85,51 +84,48 @@
          width:600px;
          height:460px;
     border:1px solid #000;">
-            <h3>Загальна сума: ***$</h3>
+            <h3>Загальна сума: {{totalSum}}$</h3>
             <form action="{% url 'createOrder' %}" method="post">
+                {% csrf_token %}
                 <div style="position: relative; left: 150px; text-align: left">
                     Логін користувача:
                     <input style="width: 31%;   padding: 5px"
                            type="text" id="username" name="username" value="{{request.session.username}}" disabled><br>
                     Номер телефону:
                     <input style="width: 32%;   padding: 5px;"
-                           type="text" id="phone" name="phone" value="#"><br>
+                           type="text" id="phone" name="phone" value="{{userDetails.phone}}"><br>
                     Електронна пошта:
                     <input style="width: 30%;   padding: 5px"
-                           type="text" id="email" name="email" value="#"><br>
+                           type="text" id="email" name="email" value="{{userDetails.email}}"><br>
                     Тип доставки:
-                    <select id="mySelect" style="width: 37%;   padding: 5px">
+                    <select id="mySelect" style="width: 37%;   padding: 5px" required>
                         <option id="del0"></option>
                         <option id="del1" value="courier">кур'єр</option>
                         <option id="del2" value="mail">пошта</option>
                     </select><br>
                     <div id="myDiv1" style="display: none; width: auto">
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for="city1">Місто</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label
+                            for="city1">Місто</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <label for="address">Адреса</label><br>
                         <input style="width: 26%;   padding: 5px" id="city1" type="text" placeholder="Ваше місто">
                         <input style="width: 30%;   padding: 5px" id="address" type="text" placeholder="Адреса"><br>
                     </div>
                     <div id="myDiv2" style="display: none; width: auto">
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for="city2">Місто</label>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label
+                            for="city2">Місто</label>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <label for="mail_index">Поштовий індекс</label><br>
                         <input style="width: 26%;   padding: 5px" id="city2" type="text" placeholder="Ваше місто">
-                        <input style="width: 26%;   padding: 5px" id="mail_index" type="text" placeholder="індекс" ><br>
+                        <input style="width: 26%;   padding: 5px" id="mail_index" type="text" placeholder="індекс"><br>
                     </div>
                     Тип оплати:
-                    <select id="pay_type" style="width: 40%;   padding: 5px">
+                    <select id="pay_type" style="width: 40%;   padding: 5px" required>
                         <option id="another" value=""></option>
                         <option id="card" value="card">карткою</option>
                         <option id="cash" value="cash upon receipt">готівкою при отриманні</option>
                     </select><br>
-
-                    <input type="button" id="paybtn2" value="Замовити">
-                    <input type="reset" id="reset1" style="background-color: #C5C5C5; color: black"
-                           value="Очистити">
-                   <!-- <div id="myDiv3" style="display: none; width: auto">
-                        <input style="background-color: #BC54FF" type="submit" value="Сплатити">
-                    </div>-->
                 </div>
+                <input style="text-align: center" type="submit" id="paybtn2" value="Замовити">
             </form>
             <br><br><br><br><br>
 
@@ -155,10 +151,10 @@
         }
     }
 
-   /* let myDiv3 = document.getElementById("myDiv3");
-    document.getElementById("pay_type").onchange = function () {
-        myDiv3.style.display = (this.selectedIndex === 1) ? "block" : "none";
-    }*/
+    /* let myDiv3 = document.getElementById("myDiv3");
+     document.getElementById("pay_type").onchange = function () {
+         myDiv3.style.display = (this.selectedIndex === 1) ? "block" : "none";
+     }*/
 </script>
 </body>
 </html>

@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
 from .forms import UserForm
-from .models import Product, Basket, User, BasketProducts
+from .models import Product, Basket, User, BasketProducts, UserDetails, Order, OrderProducts
 
 
 def index(request):
@@ -58,7 +58,6 @@ def logoutAction(request):
 
 
 def addToBasket(request):
-    # TODO check is user logged in
     title = request.POST["title"]
     count = request.POST["productCount"]
     product = Product.objects.get(title=title)
@@ -96,14 +95,12 @@ def getBasket(request):
         totalSum = 0
         for basketProduct in basketProducts:
             totalSum += int(basketProduct.product.price) * int(basketProduct.countOfProducts)
-        print('totalSum: ' + str(totalSum))
         return render(request, 'main/basket.html', {'basketProducts': basketProducts, 'totalSum': totalSum})
     else:
         return redirect('login')
 
 
 def deleteProductFromBasket(request, title):
-    print('title: ' + str(title))
     product = Product.objects.get(title=title)
     BasketProducts.objects.filter(product=product).delete()
     return getBasket(request)
@@ -119,15 +116,44 @@ def deleteBasket(request):
 
 
 def createOrderPage(request):
+    global userDetails
     if 'username' in request.session:
         username = request.session['username']
         user = User.objects.get(username=username)
-        #TODO добавить то что будет отображаться на странице по типу заполненые поля с бд(userdetails)
-        return render(request, 'main/order.html')
+        basket = Basket.objects.filter(user=user).first()
+        basketProducts = BasketProducts.objects.filter(basket=basket)
+        totalSum = 0
+        for basketProduct in basketProducts:
+            totalSum += int(basketProduct.product.price) * int(basketProduct.countOfProducts)
+
+        if UserDetails.objects.filter(user=user).exists():
+            userDetails = UserDetails.objects.get(user=user)
+
+        return render(request, 'main/order.html', {'userDetails': userDetails, 'totalSum': totalSum})
     else:
         return redirect('login')
 
 
 def createOrder(request):
-    #TODO создание чека, очистка корзины
-    return None
+    if 'username' in request.session:
+        username = request.session['username']
+        user = User.objects.get(username=username)
+        basket = Basket.objects.filter(user=user).first()
+        basketProducts = BasketProducts.objects.filter(basket=basket)
+        UserDetails.objects.get(user=user)
+        order = Order()
+        previousOrder = Order.objects.all().last()
+        order.id = previousOrder.id + 1
+        order.user = user
+        order.status = 'in process'
+        order.save()
+        for basketProduct in basketProducts:
+            orderProducts = OrderProducts()
+            orderProducts.order = order
+            orderProducts.product = basketProduct.product
+            orderProducts.countOfProducts = basketProduct.countOfProducts
+            orderProducts.save()
+        BasketProducts.objects.filter(basket=basket).delete()
+        return render(request, 'main/success.html')
+    else:
+        return redirect('login')
