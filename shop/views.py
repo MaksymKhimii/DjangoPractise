@@ -93,7 +93,6 @@ def getBasket(request):
         user = User.objects.get(username=username)
         basket = Basket.objects.filter(user=user).first()
         basketProducts = BasketProducts.objects.filter(basket=basket)
-        # TODO сделать подсчет суммы заказа и его вывод
         totalSum = 0
         for basketProduct in basketProducts:
             totalSum += int(basketProduct.product.price) * int(basketProduct.countOfProducts)
@@ -107,4 +106,13 @@ def deleteProductFromBasket(request, title):
     print('title: ' + str(title))
     product = Product.objects.get(title=title)
     BasketProducts.objects.filter(product=product).delete()
+    return getBasket(request)
+
+
+def deleteBasket(request):
+    if 'username' in request.session:
+        username = request.session['username']
+        user = User.objects.get(username=username)
+        basket = Basket.objects.filter(user=user).first()
+        BasketProducts.objects.filter(basket=basket).delete()
     return getBasket(request)

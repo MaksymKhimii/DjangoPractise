@@ -8,11 +8,12 @@ urlpatterns = [
     path('contactUs', views.contactUs, name='contactUs'),
     path('contactUs/<str:logo>', views.changedContactUs, name='contactUs'),
     path('login', views.loginPage, name='login'),
-    path('check-user', views.loginAction, name ='check-user'),
+    path('check-user', views.loginAction, name='check-user'),
     path('logout', views.logoutAction, name='logout'),
     path('addToBasket', views.addToBasket, name='addToBasket'),
     path('basket', views.getBasket, name='basket'),
-    path('deleteProductFromBasket/<str:title>', views.deleteProductFromBasket, name='deleteProductFromBasket')
+    path('deleteProductFromBasket/<str:title>', views.deleteProductFromBasket, name='deleteProductFromBasket'),
+    path('deleteBasket', views.deleteBasket, name='deleteBasket')
     # добавляем все страницы + контроллер который возращает
     # хтмл + имя, которе потом указываем с помощью джинджа в ссылке для перехода
 ]

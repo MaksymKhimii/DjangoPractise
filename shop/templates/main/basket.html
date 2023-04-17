@@ -73,8 +73,8 @@
             <li><a href="{% url 'contactUs' %}">Зв'язатися з нами</a></li>
         </ul>
     </div>
-
-    <div class="shopping-cart" style="text-align: center">
+    {% if  totalSum != 0 %}
+      <div class="shopping-cart" style="text-align: center">
         <div id="shopping-cart1" class="shopping-cart1">
             <div class="title" style="text-align: center; top: 60px;">
                 Товари у кошику:<br>
@@ -90,13 +90,27 @@
             </div>
         </div>
     </div>
-    <div style="text-align: center; top: 400px">
+     <div style="text-align: center; top: 400px">
         <form>
             <a class="continue" href="{% url 'catalog' %}">Продовжити</a>
             <a class="continue" style="background-color: #03A9F4" href="order2.html">Оформити замовлення</a>
-            <a class="continue" style="background-color: #fc5a5a" href="#" id="clear_cart">Очистити корзину</a>
+            <a class="continue" style="background-color: #fc5a5a" href="{% url 'deleteBasket' %}" id="clear_cart">Очистити корзину</a>
         </form>
     </div>
+    {% else %}
+    <div class="shopping-cart" style="text-align: center">
+        <div id="shopping-cart1" class="shopping-cart1">
+            <div class="title" style="text-align: center; top: 60px;">
+                <h2>Кошик порожній(</h2>
+            </div>
+        </div>
+    </div>
+     <div style="text-align: center; top: 400px">
+        <form>
+            <a class="continue" href="{% url 'catalog' %}">Продовжити</a>
+        </form>
+    </div>
+     {% endif %}
 </div>
 </body>
 </html>
