@@ -53,6 +53,9 @@ class OrderProductsModelAdmin(admin.ModelAdmin):
     def product_title(self):
         return self.product.title
 
+    order_id.short_description = 'Id'
+    order_user.short_description = 'Клієнт'
+    product_title.short_description = 'Назва товару'
     list_display = (order_id, order_user, product_title, 'countOfProducts')
     list_filter = ('order__id', 'order__customer', 'product__title', 'countOfProducts')
     search_fields = (order_id, order_user, product_title)
@@ -66,6 +69,8 @@ class CustomerDetailsModelAdmin(admin.ModelAdmin):
     def customer_id(self):
         return self.customer.id
 
+    customer_id.short_description = 'Id'
+    customer_username.short_description = "Ім'я клієнта"
     list_display = (customer_id, customer_username, 'email', 'phone')
     list_filter = ('customer__id', 'customer__username', 'email', 'phone')
     search_fields = ('customer__id', 'customer__username', 'email', 'phone')
