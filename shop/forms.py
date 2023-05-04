@@ -1,10 +1,10 @@
-from .models import User
+from .models import Customer
 from django.forms import ModelForm, TextInput
 
 
 class UserForm(ModelForm):
     class Meta:
-        model = User
+        model = Customer
         fields = ['username', 'password']
 
         widgets = {

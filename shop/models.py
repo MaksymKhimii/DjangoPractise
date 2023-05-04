@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class User(models.Model):
+class Customer(models.Model):
     id = models.IntegerField
     username = models.CharField('username', max_length=225)
     password = models.CharField('password', max_length=225)
@@ -18,7 +18,7 @@ class Product(models.Model):
 
 class Basket(models.Model):
     id = models.IntegerField
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
 
 
 class BasketProducts(models.Model):
@@ -29,7 +29,7 @@ class BasketProducts(models.Model):
 
 class Order(models.Model):
     id = models.IntegerField
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     status = models.CharField('status', max_length=255)
 
 
@@ -39,7 +39,7 @@ class OrderProducts(models.Model):
     countOfProducts = models.PositiveIntegerField(default=1)
 
 
-class UserDetails(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+class CustomerDetails(models.Model):
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     email = models.CharField('email', max_length=255)
     phone = models.CharField('phone', max_length=10)

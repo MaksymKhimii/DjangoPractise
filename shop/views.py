@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
 from .forms import UserForm
-from .models import Product, Basket, User, BasketProducts, UserDetails, Order, OrderProducts
+from .models import Product, Basket, Customer, BasketProducts, CustomerDetails, Order, OrderProducts
 
 
 def index(request):
@@ -63,12 +63,12 @@ def addToBasket(request):
     product = Product.objects.get(title=title)
     if 'username' in request.session:
         username = request.session['username']
-        user = User.objects.get(username=username)
+        user = Customer.objects.get(username=username)
         if Basket.objects.filter(user=user).exists():
             basket = Basket.objects.get(user=user)
         else:
             basket = Basket()
-            basket.user = user
+            basket.customer = user
             basket.id = 0
             basket.save()
         if BasketProducts.objects.filter(product=product).exists():
@@ -89,7 +89,7 @@ def addToBasket(request):
 def getBasket(request):
     if 'username' in request.session:
         username = request.session['username']
-        user = User.objects.get(username=username)
+        user = Customer.objects.get(username=username)
         basket = Basket.objects.filter(user=user).first()
         basketProducts = BasketProducts.objects.filter(basket=basket)
         totalSum = 0
@@ -109,7 +109,7 @@ def deleteProductFromBasket(request, title):
 def deleteBasket(request):
     if 'username' in request.session:
         username = request.session['username']
-        user = User.objects.get(username=username)
+        user = Customer.objects.get(username=username)
         basket = Basket.objects.filter(user=user).first()
         BasketProducts.objects.filter(basket=basket).delete()
     return getBasket(request)
@@ -119,16 +119,16 @@ def createOrderPage(request):
     global userDetails
     if 'username' in request.session:
         username = request.session['username']
-        user = User.objects.get(username=username)
+        user = Customer.objects.get(username=username)
         basket = Basket.objects.filter(user=user).first()
         basketProducts = BasketProducts.objects.filter(basket=basket)
         totalSum = 0
         for basketProduct in basketProducts:
             totalSum += int(basketProduct.product.price) * int(basketProduct.countOfProducts)
 
-        if UserDetails.objects.filter(user=user).exists():
-            userDetails = UserDetails.objects.get(user=user)
-
+        if CustomerDetails.objects.filter(user=user).exists():
+            userDetails = CustomerDetails.objects.get(user=user)
+        print(user.username)
         return render(request, 'main/order.html', {'userDetails': userDetails, 'totalSum': totalSum})
     else:
         return redirect('login')
@@ -137,14 +137,14 @@ def createOrderPage(request):
 def createOrder(request):
     if 'username' in request.session:
         username = request.session['username']
-        user = User.objects.get(username=username)
+        user = Customer.objects.get(username=username)
         basket = Basket.objects.filter(user=user).first()
         basketProducts = BasketProducts.objects.filter(basket=basket)
-        UserDetails.objects.get(user=user)
+        CustomerDetails.objects.get(user=user)
         order = Order()
         previousOrder = Order.objects.all().last()
         order.id = previousOrder.id + 1
-        order.user = user
+        order.customer = user
         order.status = 'in process'
         order.save()
         for basketProduct in basketProducts:
