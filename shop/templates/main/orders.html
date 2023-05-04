@@ -1,12 +1,11 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
+<html lang="en">
 <head>
     <link rel="stylesheet" href="{% static 'main/css/contact_style.css' %}">
-    <link rel="stylesheet" href="{% static 'main/css/basket_style.css' %}">
     <script src="https://code.jquery.com/jquery-2.2.4.js" charset="utf-8"></script>
     <meta charset="UTF-8">
-    <title>Basket</title>
+    <title>My orders</title>
 </head>
 <body>
 <div style=".flex-container">
@@ -58,10 +57,11 @@
         <h1 class="logoName"><a href="#">Магазин побутової техніки</a></h1>
         <ul class="main-nav">
             <li><a id="index" href="{% url 'main' %}">Головна</a></li>
-            <li><a href="{% url 'catalog' %}" style="">Каталог</a></li>
+            <li><a href="index.html" style="
+            background-color: #34495e; color: #ccccff;">Каталог</a></li>
             <li>
                 <div class="dropdown">
-                    <a class="dropbtn" style="background-color: #34495e; color: #ccccff;"> Кошик
+                    <a class="dropbtn"> Кошик
                         <i class="fa fa-caret-down"></i>
                     </a>
                     <div class="dropdown-content">
@@ -76,44 +76,31 @@
             <li><a href="{% url 'contactUs' %}">Зв'язатися з нами</a></li>
         </ul>
     </div>
-    {% if  totalSum != 0 %}
-      <div class="shopping-cart" style="text-align: center">
-        <div id="shopping-cart" class="shopping-cart1">
-            <div class="title" style="text-align: center; top: 60px;">
-                Товари у кошику:<br>
-                {% for basketProduct in basketProducts %}
-                <input type="text" style="width: 33%;" name="title" id="title" value="{{basketProduct.product.title}}"
-                       disabled>
-                <input type="number" style="width: 10%;" id="count" name="count"
-                       value="{{basketProduct.countOfProducts}}" disabled>
-                <a class="delete-btn1"
-                   href="{% url 'deleteProductFromBasket' title=basketProduct.product.title %}">&#10006</a><br>
-                {% endfor %}
-                Загальна сума: {{totalSum}} $<br>
-            </div>
-        </div>
-    </div>
-     <div style="text-align: center; top: 400px">
-        <form>
-            <a class="continue" href="{% url 'catalog' %}">Продовжити</a>
-            <a class="continue" style="background-color: #03A9F4" href="{% url 'orderPage' %}">Оформити замовлення</a>
-            <a class="continue" style="background-color: #fc5a5a" href="{% url 'deleteBasket' %}" id="clear_cart">Очистити корзину</a>
-        </form>
-    </div>
-    {% else %}
-    <div class="shopping-cart" style="text-align: center">
+<br><br><br><br><br><br>
+
+ <div class="shopping-cart" style="text-align: center">
         <div id="shopping-cart1" class="shopping-cart1">
             <div class="title" style="text-align: center; top: 60px;">
-                <h2>Кошик порожній(</h2>
+                  <h2>Мої замовлення:</h2>
+    {% if not orders %}
+    <h2>пустой(</h2>
+    {% else %}
+   <!-- <ul style="width: 20%; text-align: center">-->
+        {% for order in orders %}
+            <a style="left: 400px; font-size: 25px"
+               href="http://127.0.0.1:8000/orders/{{order.id}}">{{order.id}}   -   {{order.status}}</a><br>
+        {% endfor %}
+        {% endif %}
             </div>
         </div>
-    </div>
+     <br><br>
      <div style="text-align: center; top: 400px">
-        <form>
-            <a class="continue" href="{% url 'catalog' %}">Продовжити</a>
-        </form>
+                <form>
+                    <a class="continue" href="{% url 'catalog' %}">До каталогу</a>
+                </form>
+            </div>
     </div>
-     {% endif %}
+
 </div>
 </body>
 </html>

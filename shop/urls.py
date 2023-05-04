@@ -15,5 +15,7 @@ urlpatterns = [
     path('deleteProductFromBasket/<str:title>', views.deleteProductFromBasket, name='deleteProductFromBasket'),
     path('deleteBasket', views.deleteBasket, name='deleteBasket'),
     path('orderPage', views.createOrderPage, name='orderPage'),
-    path('createOrder', views.createOrder, name='createOrder')
+    path('createOrder', views.createOrder, name='createOrder'),
+    path('orders', views.getAllCustomerOrders, name='orders'),
+    path('orders/<int:id>', views.getOrderById, name='order')
 ]

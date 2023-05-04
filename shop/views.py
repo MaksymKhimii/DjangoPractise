@@ -64,8 +64,8 @@ def addToBasket(request):
     if 'username' in request.session:
         username = request.session['username']
         user = Customer.objects.get(username=username)
-        if Basket.objects.filter(user=user).exists():
-            basket = Basket.objects.get(user=user)
+        if Basket.objects.filter(customer=user).exists():
+            basket = Basket.objects.get(customer=user)
         else:
             basket = Basket()
             basket.customer = user
@@ -90,7 +90,7 @@ def getBasket(request):
     if 'username' in request.session:
         username = request.session['username']
         user = Customer.objects.get(username=username)
-        basket = Basket.objects.filter(user=user).first()
+        basket = Basket.objects.filter(customer=user).first()
         basketProducts = BasketProducts.objects.filter(basket=basket)
         totalSum = 0
         for basketProduct in basketProducts:
@@ -110,7 +110,7 @@ def deleteBasket(request):
     if 'username' in request.session:
         username = request.session['username']
         user = Customer.objects.get(username=username)
-        basket = Basket.objects.filter(user=user).first()
+        basket = Basket.objects.filter(customer=user).first()
         BasketProducts.objects.filter(basket=basket).delete()
     return getBasket(request)
 
@@ -120,14 +120,14 @@ def createOrderPage(request):
     if 'username' in request.session:
         username = request.session['username']
         user = Customer.objects.get(username=username)
-        basket = Basket.objects.filter(user=user).first()
+        basket = Basket.objects.filter(customer=user).first()
         basketProducts = BasketProducts.objects.filter(basket=basket)
         totalSum = 0
         for basketProduct in basketProducts:
             totalSum += int(basketProduct.product.price) * int(basketProduct.countOfProducts)
 
-        if CustomerDetails.objects.filter(user=user).exists():
-            userDetails = CustomerDetails.objects.get(user=user)
+        if CustomerDetails.objects.filter(customer=user).exists():
+            userDetails = CustomerDetails.objects.get(customer=user)
         print(user.username)
         return render(request, 'main/order.html', {'userDetails': userDetails, 'totalSum': totalSum})
     else:
@@ -138,9 +138,9 @@ def createOrder(request):
     if 'username' in request.session:
         username = request.session['username']
         user = Customer.objects.get(username=username)
-        basket = Basket.objects.filter(user=user).first()
+        basket = Basket.objects.filter(customer=user).first()
         basketProducts = BasketProducts.objects.filter(basket=basket)
-        CustomerDetails.objects.get(user=user)
+        CustomerDetails.objects.get(customer=user)
         order = Order()
         previousOrder = Order.objects.all().last()
         order.id = previousOrder.id + 1
@@ -155,5 +155,30 @@ def createOrder(request):
             orderProducts.save()
         BasketProducts.objects.filter(basket=basket).delete()
         return render(request, 'main/success.html')
+    else:
+        return redirect('login')
+
+
+def getAllCustomerOrders(request):
+    if 'username' in request.session:
+        username = request.session['username']
+        user = Customer.objects.get(username=username)
+        orders = Order.objects.filter(customer=user)
+        return render(request, 'main/orders.html', {'orders': orders})
+    else:
+        return redirect('login')
+
+
+def getOrderById(request, id):
+    if 'username' in request.session:
+        order = Order.objects.filter(id=id).first()
+        orderProducts = OrderProducts.objects.filter(order=order)
+        totalSum = 0
+        for orderProduct in orderProducts:
+            totalSum += int(orderProduct.product.price) * int(orderProduct.countOfProducts)
+        return render(request, 'main/orderById.html', {'order': order,
+                                                       'id': id,
+                                                       'orderProducts': orderProducts,
+                                                       'totalSum': totalSum})
     else:
         return redirect('login')
