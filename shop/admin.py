@@ -22,14 +22,14 @@ class BasketModelAdmin(admin.ModelAdmin):
 
 
 class BasketProductsModelAdmin(admin.ModelAdmin):
-    def basket_id(obj):
-        return obj.basket.id
+    def basket_id(self):
+        return self.basket.id
 
     def basket_user(self):
         return self.basket.customer
 
-    def product_title(obj):
-        return obj.product.title
+    def product_title(self):
+        return self.product.title
 
     list_display = (basket_id, basket_user, product_title, 'countOfProducts')
     list_filter = ('basket__id', 'basket__customer', 'product__title', 'countOfProducts')
@@ -62,8 +62,10 @@ class OrderProductsModelAdmin(admin.ModelAdmin):
 class CustomerDetailsModelAdmin(admin.ModelAdmin):
     def customer_username(self):
         return self.customer.username
+
     def customer_id(self):
         return self.customer.id
+
     list_display = (customer_id, customer_username, 'email', 'phone')
     list_filter = ('customer__id', 'customer__username', 'email', 'phone')
     search_fields = ('customer__id', 'customer__username', 'email', 'phone')
