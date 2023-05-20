@@ -46,6 +46,7 @@ class BasketProducts(models.Model):
 class Order(models.Model):
     id = models.IntegerField
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE, verbose_name='клієнт')
+    #TODO деталі замовлення+дата
     status = models.CharField(max_length=255, verbose_name='статус')
 
     class Meta:

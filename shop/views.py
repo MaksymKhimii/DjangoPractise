@@ -1,4 +1,5 @@
-from django.contrib.auth import authenticate, logout
+from django.contrib.auth import authenticate, logout, login
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
@@ -45,8 +46,9 @@ def loginAction(request):
     username = request.POST["username"]
     password = request.POST["password"]
     user = authenticate(request, username=username, password=password)
-    request.session['username'] = username
     if user is not None:
+        login(request, user)
+        request.session['username'] = username
         return redirect('catalog')
     else:
         return redirect('login')
@@ -57,6 +59,7 @@ def logoutAction(request):
     return redirect('main')
 
 
+@login_required(login_url='login')
 def addToBasket(request):
     title = request.POST["title"]
     count = request.POST["productCount"]
@@ -86,6 +89,7 @@ def addToBasket(request):
         return redirect('login')
 
 
+@login_required(login_url='login')
 def getBasket(request):
     if 'username' in request.session:
         username = request.session['username']
@@ -100,12 +104,14 @@ def getBasket(request):
         return redirect('login')
 
 
+@login_required(login_url='login')
 def deleteProductFromBasket(request, title):
     product = Product.objects.get(title=title)
     BasketProducts.objects.filter(product=product).delete()
     return getBasket(request)
 
 
+@login_required(login_url='login')
 def deleteBasket(request):
     if 'username' in request.session:
         username = request.session['username']
@@ -115,6 +121,7 @@ def deleteBasket(request):
     return getBasket(request)
 
 
+@login_required(login_url='login')
 def createOrderPage(request):
     global userDetails
     if 'username' in request.session:
@@ -134,6 +141,7 @@ def createOrderPage(request):
         return redirect('login')
 
 
+@login_required(login_url='login')
 def createOrder(request):
     if 'username' in request.session:
         username = request.session['username']
@@ -159,6 +167,7 @@ def createOrder(request):
         return redirect('login')
 
 
+@login_required(login_url='login')
 def getAllCustomerOrders(request):
     if 'username' in request.session:
         username = request.session['username']
@@ -169,6 +178,7 @@ def getAllCustomerOrders(request):
         return redirect('login')
 
 
+@login_required(login_url='login')
 def getOrderById(request, id):
     if 'username' in request.session:
         order = Order.objects.filter(id=id).first()
