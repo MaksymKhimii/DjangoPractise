@@ -65,7 +65,7 @@ def addToBasket(request):
     count = request.POST["productCount"]
     product = Product.objects.get(title=title)
     if 'username' in request.session:
-        username = request.session['username']
+        username = request.user.username
         user = Customer.objects.get(username=username)
         if Basket.objects.filter(customer=user).exists():
             basket = Basket.objects.get(customer=user)
@@ -91,8 +91,8 @@ def addToBasket(request):
 
 @login_required(login_url='login')
 def getBasket(request):
-    if 'username' in request.session:
-        username = request.session['username']
+    if request.user.is_authenticated and request.user.username != '':
+        username = request.user.username
         user = Customer.objects.get(username=username)
         basket = Basket.objects.filter(customer=user).first()
         basketProducts = BasketProducts.objects.filter(basket=basket)
@@ -113,8 +113,8 @@ def deleteProductFromBasket(request, title):
 
 @login_required(login_url='login')
 def deleteBasket(request):
-    if 'username' in request.session:
-        username = request.session['username']
+    if request.user.is_authenticated and request.user.username != '':
+        username = request.user.username
         user = Customer.objects.get(username=username)
         basket = Basket.objects.filter(customer=user).first()
         BasketProducts.objects.filter(basket=basket).delete()
@@ -124,8 +124,8 @@ def deleteBasket(request):
 @login_required(login_url='login')
 def createOrderPage(request):
     global userDetails
-    if 'username' in request.session:
-        username = request.session['username']
+    if request.user.is_authenticated and request.user.username != '':
+        username = request.user.username
         user = Customer.objects.get(username=username)
         basket = Basket.objects.filter(customer=user).first()
         basketProducts = BasketProducts.objects.filter(basket=basket)
@@ -143,8 +143,8 @@ def createOrderPage(request):
 
 @login_required(login_url='login')
 def createOrder(request):
-    if 'username' in request.session:
-        username = request.session['username']
+    if request.user.is_authenticated and request.user.username != '':
+        username = request.user.username
         user = Customer.objects.get(username=username)
         basket = Basket.objects.filter(customer=user).first()
         basketProducts = BasketProducts.objects.filter(basket=basket)
@@ -169,8 +169,8 @@ def createOrder(request):
 
 @login_required(login_url='login')
 def getAllCustomerOrders(request):
-    if 'username' in request.session:
-        username = request.session['username']
+    if request.user.is_authenticated and request.user.username != '':
+        username = request.user.username
         user = Customer.objects.get(username=username)
         orders = Order.objects.filter(customer=user)
         return render(request, 'main/orders.html', {'orders': orders})
@@ -180,7 +180,7 @@ def getAllCustomerOrders(request):
 
 @login_required(login_url='login')
 def getOrderById(request, id):
-    if 'username' in request.session:
+    if request.user.is_authenticated:
         order = Order.objects.filter(id=id).first()
         orderProducts = OrderProducts.objects.filter(order=order)
         totalSum = 0
