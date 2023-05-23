@@ -17,5 +17,6 @@ urlpatterns = [
     path('orderPage', views.createOrderPage, name='orderPage'),
     path('createOrder', views.createOrder, name='createOrder'),
     path('orders', views.getAllCustomerOrders, name='orders'),
-    path('orders/<int:id>', views.getOrderById, name='order')
+    path('orders/<int:id>', views.getOrderById, name='order'),
+    path('getAllProducts', views.getAllProducts, name='getAllProducts')
 ]

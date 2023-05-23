@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate, logout, login
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse, HttpResponseBadRequest
 from django.shortcuts import render, redirect
 
 from .forms import UserForm
@@ -19,8 +19,25 @@ def main(request):
 
 def catalog(request):
     products = Product.objects.all()
-    return render(request, 'main/catalog.html', {'products': products})
+    # ajax version of catalog loading
+    return render(request, 'main/catalog-with-ajax.html', {'products': products})
+    # basic render response
+    #return render(request, 'main/catalog.html', {'products': products})
 
+
+def productToDict(product):
+    if product is None:
+        return None
+    dictionary = {"title": product.title, "price": product.price, "img": product.img}
+    return dictionary
+
+
+def getAllProducts(request):
+    products = Product.objects.all()
+    response = []
+    for p in products:
+        response.append(productToDict(p))
+    return JsonResponse(response, safe=False)
 
 def contactUs(request):
     logo = 'logo'
