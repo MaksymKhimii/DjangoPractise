@@ -27,8 +27,7 @@ def catalog(request):
 
 
 def getAllProducts(request):
-    products = Product.objects.all()
-    return JsonResponse(list(products.values()), safe=False)
+    return JsonResponse(list(Product.objects.all().values()), safe=False)
 
 
 def contactUs(request):
