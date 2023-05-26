@@ -19,10 +19,10 @@ def main(request):
 
 
 def catalog(request):
-    products = Product.objects.all()
     # ajax version of catalog loading
-    return render(request, 'main/catalog-with-ajax.html', {'products': products})
+    return render(request, 'main/catalog-with-ajax.html')
     # basic render response
+    #products = Product.objects.all()
     # return render(request, 'main/catalog.html', {'products': products})
 
 
