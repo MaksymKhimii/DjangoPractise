@@ -1,30 +1,42 @@
-container = document.getElementById('container');
-window.addEventListener('load', getProducts);
+message = document.getElementById('description-message');
 
-function getProducts() {
+function hideMessage() {
+    document.getElementById('description-message').style.display = 'none';
+}
+
+window.addEventListener('load', hideMessage());
+
+function getProductDescription(title) {
     let xhr = new XMLHttpRequest();
-    xhr.open("GET", "getAllProducts", true);
+    xhr.open("GET", `getProductDescription/${title}`, true);
     xhr.send();
     xhr.onreadystatechange = function () {
+        let window = "";
         if (this.readyState === 4 && this.status === 200) {
-            const products = JSON.parse(this.responseText);
-            let totalItems = ''
-            let i = 0;
-            for (let i = 0; i < products.length; i++) {
-                totalItems += ' <div class="item_box">\n' +
-                    '            <img src="' + products[i].img + '"\n' +
-                    '                 alt="photo">\n' +
-                    '            <div class="product-list">\n' +
-                    '                <div id="title' + i + '" class="item_title">' + products[i].title + '</div>\n' +
-                    '                <span id="price' + i + '" class="item_price">' + products[i].price + '</span>\n' +
-                    '                <button onclick="addToBasket(' + i + ')"\n' +
-                    '                        class="add_item" data-id="' + i + '">Додати до кошика\n' +
-                    '                </button>\n' +
-                    '            </div>\n' +
-                    '        </div>'
+            const description = JSON.parse(this.responseText);
+            console.log("description: ", description);
+            if( description != null) {
+                window += "<div class=\"message_container\">\n" +
+                    "            <div class=\"message_body\">\n" +
+                    " <form action=\"/catalog\" method=\"get\">\n" +
+                    "                    <input type=\"submit\" class=\"close_wind\" style=\"padding: 2.5px 7.5px\" value=\"&#10006\">\n" +
+                    "                </form>" +
+                    "                " + description + "\n" +
+                    "            </div>" +
+                    "</div>";
+            } else {
+                let nullDescriptionMessage = "Опис цього товару відсутній";
+                window+="<div class=\"message_container\">\n" +
+                    "            <div class=\"message_body\">\n" +
+                    " <form action=\"/catalog\" method=\"get\">\n" +
+                    "                    <input type=\"submit\" class=\"close_wind\" style=\"padding: 2.5px 7.5px\" value=\"&#10006\">\n" +
+                    "                </form>" +
+                    "               "+nullDescriptionMessage+" \n" +
+                    "            </div>" +
+                    "</div>";
             }
-            container.innerHTML = totalItems;
         }
+        message.innerHTML = window;
     }
-
+    document.getElementById('description-message').style.display = 'block';
 }

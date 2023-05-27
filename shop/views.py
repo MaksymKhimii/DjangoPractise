@@ -20,14 +20,19 @@ def main(request):
 
 def catalog(request):
     # ajax version of catalog loading
-    return render(request, 'main/catalog-with-ajax.html')
+    # return render(request, 'main/catalog-with-ajax.html')
     # basic render response
-    #products = Product.objects.all()
-    # return render(request, 'main/catalog.html', {'products': products})
+    products = Product.objects.all()
+    return render(request, 'main/catalog.html', {'products': products})
 
 
 def getAllProducts(request):
     return JsonResponse(list(Product.objects.all().values()), safe=False)
+
+
+def getProductDescription(request, title):
+    product = Product.objects.filter(title=title).first()
+    return JsonResponse(product.description, safe=False)
 
 
 def contactUs(request):

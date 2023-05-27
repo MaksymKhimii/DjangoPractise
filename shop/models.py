@@ -18,6 +18,7 @@ class Product(models.Model):
     title = models.CharField(verbose_name='назва товару', max_length=255)
     price = models.FloatField(verbose_name='ціна', null=True)
     img = models.TextField(verbose_name='Посилання на зображення', null=True)
+    description = models.TextField(verbose_name="опис товару", null=True)
 
     class Meta:
         verbose_name = 'Товар'

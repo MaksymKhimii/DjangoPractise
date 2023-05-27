@@ -9,10 +9,10 @@ class CustomerModelAdmin(admin.ModelAdmin):
 
 
 class ProductModelAdmin(admin.ModelAdmin):
-    list_display = ('title', 'price', 'img')
+    list_display = ('title', 'price', 'img', 'description')
     list_filter = ('title', 'price')
-    search_fields = ('title', 'price', 'img')
-    list_display_links = ('title', 'price', 'img')
+    search_fields = ('title', 'price', 'img', 'description')
+    list_display_links = ('title', 'price', 'img', 'description')
 
 
 class BasketModelAdmin(admin.ModelAdmin):

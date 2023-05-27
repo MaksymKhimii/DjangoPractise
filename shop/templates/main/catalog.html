@@ -76,8 +76,6 @@
             <li><a href="{% url 'contactUs' %}">Зв'язатися з нами</a></li>
         </ul>
     </div>
-
-    <!--корзина------------------------------------------------------>
     <div class="message" id="message">
         <div class="message_container">
             <div class="message_body">
@@ -91,14 +89,14 @@
                     <div id="shopping-cart" class="shopping-cart"></div>
                     <br>
                     <button type="submit" class="continue" style="background-color: #03A9F4">Продовжити</button>
-                    <!-- <a class="continue" style="background-color: #03A9F4" href="html/order2.html">Оформити
-                         замовлення</a>
-                     <a class="continue" style="background-color: #fc5a5a" href="#" id="clear_cart">Очистити корзину</a>-->
                 </form>
             </div>
         </div>
     </div>
-    <!--корзина------------------------------------------------------>
+    <div class="message" id="description-message">
+
+
+    </div>
 
     <div class="container" style="margin-top: 150px">
         {% for product in products %}
@@ -110,6 +108,12 @@
                 <span id="price{{ forloop.counter0 }}" class="item_price">{{ product.price }}</span>
                 <button onclick="addToBasket({{ forloop.counter0 }})"
                         class="add_item" data-id="{{ forloop.counter0 }}">Додати до кошика
+                </button>
+                <button onclick="getProductDescription('{{ product.title }}')">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                         class="bi bi-three-dots" viewBox="0 0 16 16">
+                        <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>
+                    </svg>
                 </button>
             </div>
         </div>
